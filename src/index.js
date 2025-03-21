@@ -3,23 +3,47 @@
 import { Router } from "@fastly/expressly";
 
 const router = new Router();
+let backendResponse;
+let root = "/my-site/"; //change to your repo name if you forked the site
 
-// Use middleware to set a header
-router.use((req, res) => {
+router.use(async (req, res) => {
   res.set("x-powered-by", "expressly");
+  backendResponse = await fetch(req.url, {
+    backend: "blog"
+  });
 });
 
-// GET 200 response
-router.get('/', (req, res) => {
-  res.sendStatus(200); // "OK"
+router.get(`${root}feed/feed.json`, async (req, res) => {
+  let originData = await backendResponse.json();
+  let posts = ``; // change to your repo name
+  for (const pst of originData.items) {
+    let date = new Date(pst.date_published);
+    date = date.toDateString();
+    let linkUrl = new URL(pst.url);
+    posts += `<p><a href="${linkUrl.pathname}"><strong>${pst.title}</strong></a> – ${date}</p>`;
+  }
+  let page =`
+  <!DOCTYPE html>
+  <html>
+    <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1" />
+      <title>${originData.title} – Feed 🗞️</title>
+      <!-- 🚧 Change CSS location to suit your site 🚧 -->
+      <link rel="stylesheet" href="${root}css/index.css"/>
+    </head>
+    <body>
+      <header><a class="home-link" href="${root}">My Website</a></header>
+      <h2>${originData.title} – Feed 🗞️</h2>
+      <div>${posts}</div>
+    </body>
+  </html>`;
+
+  res.withStatus(backendResponse.status).html(page);
 });
 
-// POST simple message
-router.post("/submit", async (req, res) => {
-  let body = await req.text();
-  res.send(`You posted: "${body}"`)
-})
-
-// 404/405 response for everything else
+router.all("(.*)", async (req, res) => {
+  res.send(backendResponse);
+});
 
 router.listen();
