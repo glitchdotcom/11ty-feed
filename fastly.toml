@@ -10,3 +10,10 @@ name = "Default starter kit for expressly"
 [scripts]
 build = "npm run build"
 post_init = "npm install"
+
+[setup]
+
+  [setup.backends]
+
+    [setup.backends.blog]
+      address = "glitchdotcom.github.io"
