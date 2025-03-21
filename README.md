@@ -19,6 +19,8 @@ Explore an example of what this starter does: [informally-one-shrimp.edgecompute
 
 ![Feed page](https://github.com/user-attachments/assets/f669c809-6e44-468d-be87-46ade8cd6531)
 
+🧰 **You can try this code in the browser in [Fastly Fiddle](https://fiddle.fastly.dev/fiddle/dae9ad2b)!**
+
 ## 1. Setup
 
 Develop with the project locally by [installing the Fastly tools](https://www.fastly.com/documentation/guides/compute/) and starting a new Compute project.
