@@ -9,7 +9,7 @@ This starter kit turns a JSON feed from an 11ty site into a web page in a Fastly
 
 You can use this starter kit out of the box with the default backend, or you can use your own website by changing it in the `fastly.toml` section `[setup.backends.blog]` and changing the `root` variable in the `src/index.js` file __before you deploy the app for the first time__ (otherwise you need to update the backend address via the Fastly CLI).
 
-⏲️ _Stay tuned for more including a tutorial series on using this starter kit..._
+**🎒 Check out the tutorial on building this app: [Enhance an 11ty site at the edge](https://dev.to/fastly/enhance-an-11ty-site-at-the-edge-5cgc)**
 
 > This repo is cloned from the [default starter kit for Expressly](https://github.com/fastly/compute-starter-kit-javascript-expressly).
 
